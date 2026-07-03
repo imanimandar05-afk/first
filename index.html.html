@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پورتال جامع آموزش مهندسی (Engineering Education)</title>
+    <style>
+        /* تعریف متغیرهای رنگی برای شخصی‌سازی آسان */
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #f39c12;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+
+        /* ریست و تنظیمات پایه */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* هدر اصلی وب‌سایت */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* منوی ناوبری چسبان (Sticky Navbar) */
+        nav {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+
+        .nav-link {
+            color: #d1d8e0;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link.active {
+            color: white;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        /* ظرف اصلی محتوا */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            min-height: 500px;
+        }
+
+        /* صفحات/تب‌های محتوایی (به صورت پیش‌فرض پنهان هستند) */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* تب فعال */
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* استایل کارت‌ها و بخش‌ها */
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--secondary-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #eaeded;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 15px 0 10px 0;
+            font-size: 1.25rem;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        /* لیست‌های شیک */
+        ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 12px;
+        }
+
+        ul li::before {
+            content: "✦";
+            position: absolute;
+            right: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* گرید باکس‌ها برای ساختاردهی اطلاعات */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .grid-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        /* واژه‌نامه تخصصی (تلفظ و معنی) */
+        .vocabulary-box {
+            background: #eef2f7;
+            border-right: 5px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .vocab-item {
+            margin-bottom: 10px;
+        }
+
+        .vocab-item strong {
+            color: var(--primary-color);
+        }
+
+        .pronunciation {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* فوتر */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* بهینه‌سازی برای موبایل */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .nav-link { padding: 8px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر سایت -->
+    <header>
+        <h1>پورتال معرفی جامع رشته آموزش مهندسی</h1>
+        <p>توسعه متدولوژی‌های نوین یادگیری، ارزیابی برنامه‌های درسی و تحلیل داده‌های آموزشی</p>
+    </header>
+
+    <!-- منوی ناوبری داینامیک -->
+    <nav>
+        <div class="nav-container">
+            <span class="nav-link active" onclick="switchTab('home')">خانه و ضرورت</span>
+            <span class="nav-link" onclick="switchTab('curriculum')">برنامه درسی و مقاطع</span>
+            <span class="nav-link" onclick="switchTab('methodology')">روش‌های پژوهش</span>
+            <span class="nav-link" onclick="switchTab('technology')">فناوری‌های نوین</span>
+            <span class="nav-link" onclick="switchTab('careers')">فرصت‌های شغلی</span>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی صفحات -->
+    <div class="container">
+
+        <!-- صفحه ۱: خانه و ضرورت -->
+        <div id="home" class="tab-content active">
+            <div class="card">
+                <h2>رشته آموزش مهندسی (Engineering Education) چیست؟</h2>
+                <p>
+                    آموزش مهندسی یک حوزه مطالعاتی و پژوهشی بین‌رشته‌ای در سطح جهان است که با هدف ارتقای کیفیت تربیت مهندسان شکل گرفته است. این رشته با تلفیق اصول فنی و پایه‌ای مهندسی، نظریه‌های یادگیری، روان‌شناسی تربیتی و علوم شناختی تلاش می‌کند سیستم‌های آموزشی را در دانشکده‌های مهندسی متحول سازد.
+                </p>
+                <p>
+                    مخاطبان اصلی این حوزه، اساتید دانشگاه، طراحان برنامه‌های درسی، ارزیابان سیستم‌های آموزشی و پژوهشگرانی هستند که می‌خواهند فرآیند انتقال مفاهیم پیچیده مهندسی را بهبود بخشند.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>چرا امروزه این رشته یک ضرورت است؟</h2>
+                <div class="grid-layout">
+                    <div class="grid-box">
+                        <h3>تغییر شتابان تکنولوژی</h3>
+                        <p>با ورود هوش مصنوعی و اتوماسیون پیشرفته، سیلابس‌های درسی قدیمی کارایی خود را از دست داده‌اند و به بازبینی مداوم نیاز دارند.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>نیاز به مهارت‌های نرم</h3>
+                        <p>صنعت امروز فقط مهندس مسلط به ریاضیات نمی‌خواهد؛ کار تیمی، مدیریت پروژه، اخلاق مهندسی و تفکر انتقادی نقشی حیاتی دارند.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>افت تحصیلی و ریزش دانشجویان</h3>
+                        <p>بررسی دلایل بی‌انگیزگی دانشجویان سال‌های اول مهندسی و طراحی مسیرهایی برای افزایش نرخ ماندگاری آموزشی آن‌ها.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحه ۲: برنامه درسی و مقاطع تحصیلی -->
+        <div id="curriculum" class="tab-content">
+            <div class="card">
+                <h2>مقاطع و گرایش‌های تحصیلی</h2>
+                <p>
+                    این رشته معمولاً در مقطع کارشناسی ارشد (M.Sc.) و دکتری (Ph.D.) در دانشگاه‌های معتبر جهان و ایران ارائه می‌شود. دانشجویان ورودی این رشته عموماً فارغ‌التحصیلان رشته‌های فنی و مهندسی هستند که علاقه‌مند به حوزه‌های توسعه آموزش و پژوهش‌های تربیتی هستند.
+                </p>
+                <h3>محورهای اصلی برنامه درسی:</h3>
+                <ul>
+                    <li><strong>فلسفه و تاریخ آموزش مهندسی:</strong> درک ریشه‌های شکل‌گیری تفکر مهندسی.</li>
+                    <li><strong>طراحی برنامه درسی (Curriculum Development):</strong> اصول تدوین و بازنگری چارت درسی رشته‌های مختلف مهندسی بر اساس استانداردهای بین‌المللی مانند ABET.</li>
+                    <li><strong>نظریه‌های یادگیری در مهندسی:</strong> یادگیری فعال (Active Learning) و یادگیری مبتنی بر حل مسئله (Problem-Based Learning).</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>واژگان کلیدی این بخش (اصطلاحات دانشگاهی)</h2>
+                <div class="vocabulary-box">
+                    <div class="vocab-item">
+                        <strong>Curriculum Design</strong> <span class="pronunciation">/kəˈrɪkjələm dɪˈzaɪn/</span>: طراحی برنامه درسی؛ برنامه‌ریزی هدفمند برای یادگیری دانشجویان.
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Pedagogy</strong> <span class="pronunciation">/ˈpedəɡɒdʒi/</span>: پداگوژی (علم و هنر تعلیم و تربیت و روش‌های تدریس).
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Accreditation</strong> <span class="pronunciation">/əˌkredɪˈteɪʃn/</span>: اعتباربخشی؛ تایید کیفیت استانداردهای آموزشی دانشکده‌ها.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحه ۳: روش‌های پژوهش (Methodology) -->
+        <div id="methodology" class="tab-content">
+            <div class="card">
+                <h2>روش‌شناسی پژوهش در آموزش مهندسی</h2>
+                <p>
+                    تحقیقات در حوزه آموزش مهندسی ماهیتی بین‌رشته‌ای دارد. پژوهشگران برای بررسی فرضیه‌ها و حل مسائل آموزشی از متدولوژی‌های گوناگون علمی استفاده می‌کنند:
+                </p>
+                <div class="grid-layout">
+                    <div class="grid-box">
+                        <h3>روش‌های کمی (Quantitative)</h3>
+                        <p>استفاده از آزمون‌های استاندارد آماری، تحلیل داده‌های پیشرفت تحصیلی و مدل‌سازی معادلات ساختاری برای سنجش اثربخشی یک متد تدریس جدید.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>روش‌های کیفی (Qualitative)</h3>
+                        <p>انجام مصاحبه‌های عمیق، پدیدارشناسی (Phenomenology) و مطالعه موردی جهت درک عمیق تجربیات دانشجویان و اساتید از محیط آموزشی.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>روش‌های آمیخته (Mixed Methods)</h3>
+                        <p>ترکیب داده‌های کمی و کیفی برای ارائه یک تصویر جامع و کامل از پدیده‌های پیچیده آموزشی.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>ارزیابی آموزشی (Educational Evaluation)</h2>
+                <p>
+                    ارزیابی کیفیت تدریس اساتید، تحلیل آزمون‌های پایان‌ترم و سنجش کیفیت خروجی فارغ‌التحصیلان مهندسی با متدهای روان‌سنجی از ارکان مهم پژوهش‌های این حوزه به شمار می‌روند.
+                </p>
+            </div>
+        </div>
+
+        <!-- صفحه ۴: فناوری‌های نوین -->
+        <div id="technology" class="tab-content">
+            <div class="card">
+                <h2>نقش فناوری‌های مدرن در آموزش مهندسی</h2>
+                <p>
+                    رویکردهای نوین آموزشی به شدت با تکنولوژی گره خورده‌اند. امروزه پژوهش در حوزه‌های زیر از ترندهای اصلی جهان است:
+                </p>
+                <ul>
+                    <li><strong>هوش مصنوعی مولد (Generative AI):</strong> بررسی چگونگی استفاده از مدل‌های زبانی بزرگ در حل مسائل مهندسی و برنامه‌نویسی بدون آسیب به خلاقیت دانشجو.</li>
+                    <li><strong>واقعیت مجازی و افزوده (VR/AR):</strong> طراحی محیط‌های آزمایشگاهی مجازی و شبیه‌سازهای کارگاهی برای درک عمیق‌تر سازه‌ها یا فرآیندهای شیمیایی خطرناک.</li>
+                    <li><strong>داده‌کاوی آموزشی (Educational Data Mining):</strong> رصد رفتار دانشجویان در سامانه‌های یادگیری آنلاین (LMS) و پیش‌بینی زودهنگام احتمال افت تحصیلی یا انصراف آن‌ها.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- صفحه ۵: فرصت‌های شغلی -->
+        <div id="careers" class="tab-content">
+            <div class="card">
+                <h2>آینده شغلی و زمینه‌های کاری</h2>
+                <p>
+                    فارغ‌التحصیلان رشته آموزش مهندسی می‌توانند در نقش‌های متنوعی در دانشگاه‌ها، موسسات پژوهشی و صنایع بزرگ ایفای نقش کنند:
+                </p>
+                <div class="grid-layout">
+                    <div class="grid-box">
+                        <h3>مراکز توسعه آموزش (EDC)</h3>
+                        <p>توسعه توانمندی‌های تدریس اعضای هیئت علمی دانشگاه‌ها و طراحی کارگاه‌های آموزشی ارتقای اساتید.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>سیاست‌گذاری و برنامه‌ریزی</h3>
+                        <p>مشاوره در وزارت‌خانه‌ها و نهادهای بالادستی برای بازنویسی سرفصل‌های وزارت علوم و ارزیابی کیفیت دانشگاه‌ها.</p>
+                    </div>
+                    <div class="grid-box">
+                        <h3>بخش آموزش صنایع بزرگ</h3>
+                        <p>طراحی دوره‌های کارآموزی، بازآموزی و ارتقای شایستگی‌های فنی مهندسان شاغل در صنایع نفت، خودرو، الکترونیک و غیره.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- فوتر وب‌سایت -->
+    <footer>
+        <p>پورتال جامع معرفی رشته آموزش مهندسی | توسعه داده شده با استانداردهای وب مدرن</p>
+    </footer>
+
+    <!-- کدهای جاوااسکریپت برای مدیریت تب‌ها بدون ریلود صفحه -->
+    <script>
+        function switchTab(tabId) {
+            // ۱. غیرفعال کردن تمامی صفحات (پنهان کردن)
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // ۲. غیرفعال کردن کلاس اکتیو در منوها
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // ۳. نمایش صفحه کلیک شده
+            document.getElementById(tabId).classList.add('active');
+
+            // ۴. فعال کردن منوی مربوطه با توجه به رویداد کلیک
+            event.target.classList.add('active');
+
+            // ۵. اسکرول نرم به بالای صفحه در هنگام تغییر تب
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
